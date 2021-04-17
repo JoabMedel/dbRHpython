@@ -1,9 +1,8 @@
-from django.urls import path
-from empleados.views import EmpleadosViews, EmpleadoDetailView
+from rest_framework.routers import DefaultRouter
+from empleados.views import EmpleadosViewSet
 
-app_name = "Empleados"
-urlpatterns = [
-    path('', EmpleadosViews.as_view()),
-    path('<pk>/', EmpleadoDetailView.as_view())
-]
+router = DefaultRouter()
+router.register(r'', EmpleadosViewSet)
+
+urlpatterns = router.urls
 

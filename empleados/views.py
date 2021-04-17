@@ -1,19 +1,15 @@
-from rest_framework import generics
+from rest_framework.viewsets import ModelViewSet
 from empleados.models import Empleados
-from empleados.serializers import ShowEmpleadosSerializer, DetailEmpleadoSerializer
+from empleados.serializers import ShowEmpleadosSerializer, DetailEmpleadoSerializer, AddNewEmpleadoSerializer
 
 
-class EmpleadosViews(generics.ListCreateAPIView):
+class EmpleadosViewSet(ModelViewSet):
     queryset = Empleados.objects.all()
     serializer_class = ShowEmpleadosSerializer
 
-    def get_serializer_class(self):
-        if self.request.method == "POST":
+    def get_serializer_class(self, *args, **kwargs):
+        if self.action == 'retrieve':
             return DetailEmpleadoSerializer
+        if self.action == 'create':
+            return AddNewEmpleadoSerializer
         return ShowEmpleadosSerializer
-
-
-class EmpleadoDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Empleados.objects.all()
-    serializer_class = DetailEmpleadoSerializer
-

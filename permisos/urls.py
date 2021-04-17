@@ -1,9 +1,8 @@
-from django.urls import path
-from permisos.views import PermisosViews, PermisoDetailViews
+from rest_framework.routers import DefaultRouter
+from permisos.views import PermisosViewSet
 
-app_name = "Permisos"
-urlpatterns = [
-    path('', PermisosViews.as_view()),
-    path('<pk>/', PermisoDetailViews.as_view())
-]
+router = DefaultRouter()
+router.register(r'', PermisosViewSet)
+
+urlpatterns = router.urls
 
